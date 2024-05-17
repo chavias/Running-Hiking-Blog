@@ -7,6 +7,7 @@ This is a simple blog application built with Flask, a lightweight web framework 
 - Create, read, update, and delete blog posts
 - User authentication and authorization
 - Responsive design using Bootstrap
+- Forgot-password functionality
 
 ## Prerequisites
 
