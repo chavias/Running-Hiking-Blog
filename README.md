@@ -27,7 +27,7 @@ git clone https://github.com/your-username/flask-blog.git
 cd flask-blog
 ```
 
-## Build and Run the Docker Container
+### Build and Run the Docker Container
 
 1. Create a .env file. You can use the provided .env.example file as a   template to create your .env file:
     ```bash
