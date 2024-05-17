@@ -1,0 +1,6 @@
+.env
+.vscode
+.venv
+__pycache__/
+flaskblog/__pycache__/
+docker-compose.debug.yml
