@@ -1,4 +1,4 @@
-# Flask Blog Application
+# Flask Blog
 
 This is a simple blog application built with Flask, a lightweight web framework for Python. The application is containerized using Docker to ensure consistency across different environments.
 
