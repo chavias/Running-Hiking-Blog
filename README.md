@@ -28,7 +28,7 @@ git clone https://github.com/your-username/flask-blog.git
 cd flask-blog
 ```
 
-### Build and Run the Docker Container
+## Build and Run the Docker Container
 
 1. Create a .env file. You can use the provided .env.example file as a   template to create your .env file:
     ```bash
@@ -48,7 +48,7 @@ cd flask-blog
     docker run -p 5000:5000 flask_blog
     ```
 
-## Using Docker Compose
+### Using Docker Compose
 
 For easier management you can use Docker Compose. You can use the provided docker-compose.yml file or adapt it to your needs.
 
@@ -75,7 +75,7 @@ For easier management you can use Docker Compose. You can use the provided docke
 
 Once the container is running, you can access the application at http://localhost:5000.
 
-### Application Structure
+## Application Structure
 
 ```
 .
