@@ -44,6 +44,22 @@ def create_app(config_class=Config):
 '''
 !!! in the terminal !!! 
 
+from flaskblog import db, create_app
+
+app = create_app()
+with app.app_context():
+    db.create_all()
+
+
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import create_engine
+from flaskblog import models
+
+Base = declarative_base()
+engine = create_engine('sqlite:///site.db')
+Base.metadata.create_all(bind=engine)
+
+
 from flaskblog import app, db
 from flaskblog.models import User, Post # this has to be imported before the database is created
 with app.app_context(): 

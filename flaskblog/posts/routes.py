@@ -4,6 +4,8 @@ from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm
+from flaskblog.posts.utils import save_gpx
+
 
 
 posts = Blueprint('posts', __name__)
@@ -14,7 +16,8 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        gpx_file = save_gpx(form.gpx.data)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user,gpx_file=gpx_file)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!','success')
@@ -60,3 +63,18 @@ def delete_post(post_id):
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.home'))
 
+@posts.route("/post/new/<int:post_id>/map",methods=['POST'])
+def upload_gpx(post_id):
+    post = Post.query.get_or_404(post_id)
+    form = PostForm()
+    if form.validate_on_submit():
+        if form.gpx.data:
+            gpx_file = save_gpx(form.picture.data)
+            current_user.image_file = gpx_file
+        # post.title = form.title.data
+        # post.content = form.content.data
+        # db.session.commit()
+        flash('GPX file has been uploaded!', 'success')
+        return redirect(url_for('posts.post', post_id=post.id))
+
+    return render_template('upload.html', form=form)
