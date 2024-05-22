@@ -36,6 +36,11 @@ def new_post():
 
 @posts.route("/post/new/<int:post_id>")
 def post(post_id):
+    """
+    pip install flask-download-btn
+
+    for the gpx download button
+    """
     post = Post.query.get_or_404(post_id)
     if post.gpx_file:
         map_html = create_map(post.gpx_file)
