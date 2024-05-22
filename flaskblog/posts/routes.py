@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm, UpdatePostForm
-from flaskblog.posts.utils import save_gpx, create_map, download_file
+from flaskblog.posts.utils import save_gpx, create_map
 
 import os
 from flask import url_for, current_app, send_from_directory, flash

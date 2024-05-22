@@ -54,3 +54,5 @@ def create_map(gpx_fn):
     folium_gpx = folium.PolyLine(points, color='red', weight=5, opacity=0.85).add_to(m)
     
     return m._repr_html_()
+
+import numpy
