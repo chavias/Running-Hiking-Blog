@@ -4,3 +4,5 @@
 __pycache__/
 flaskblog/__pycache__/
 docker-compose.debug.yml
+flaskblog/static/profile_pics/*
+flaskblog/static/route_gpx/*
