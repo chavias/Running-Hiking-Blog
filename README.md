@@ -1,10 +1,11 @@
-# Flask Blog
+# Hiking Blog
 
 This is a simple blog application built with Flask, a lightweight web framework for Python. The application is containerized using Docker to ensure consistency across different environments.
 
 ## Features
 
-- Create, read, update, and delete blog posts
+- Create, view, update, and delete hiking or running trails
+- Upload hiking trails in form of GPX files
 - User authentication and authorization
 - Responsive design using Bootstrap
 - Forgot-password functionality
