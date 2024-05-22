@@ -16,9 +16,11 @@
         </div>
         <h2 class="article-title">{{ post.title }}</h2>
         <p class="article-content">{{ post.content }}</p>
+        {% if folium_map %}
         <div id="map">
           {{ folium_map|safe }}
         </div>
+        {% endif %}
     </div>
 </article>
 <!-- Modal -->

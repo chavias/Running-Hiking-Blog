@@ -41,9 +41,11 @@
                 {% endif %}
             </div>
         </fieldset>
+        {% if folium_map %}
         <div id="map">
             {{ folium_map|safe }}
         </div>
+        {% endif %}
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}
         </div>

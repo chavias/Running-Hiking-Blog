@@ -3,7 +3,7 @@ from flask import (render_template, url_for, request,
 from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post
-from flaskblog.posts.forms import PostForm
+from flaskblog.posts.forms import PostForm, UpdatePostForm
 from flaskblog.posts.utils import save_gpx, create_map
 
 
@@ -14,20 +14,22 @@ posts = Blueprint('posts', __name__)
 @login_required
 def new_post():
     form = PostForm()
+    map_html = None
     if form.validate_on_submit():
-        gpx_file = save_gpx(form.gpx.data)
+        if form.gpx.data:
+            gpx_file = save_gpx(form.gpx.data)
+        else:
+            gpx_file = None
         post = Post(title = form.title.data,
                     content = form.content.data,
                     author = current_user,
                     gpx_file = gpx_file)
- 
-        map_html = create_map(gpx_file)
+        if gpx_file:
+            map_html = create_map(gpx_file)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!','success')
         return redirect(url_for('main.home'))
-    
-    map_html = create_map(form.gpx.data)
     return render_template('create_post.html', title='New Post',
                             form=form, legend='New Post', folium_map=map_html)
 
@@ -45,7 +47,7 @@ def update_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
-    form = PostForm()
+    form = UpdatePostForm()
     if form.validate_on_submit():
         gpx_file = save_gpx(form.gpx.data)
         post.title = form.title.data
