@@ -3,7 +3,7 @@ import secrets
 from flask import url_for, current_app
 import gpxpy
 import folium
-from folium.plugins import Fullscreen
+from folium.plugins import Fullscreen, Geocoder, Draw
 
 
 def save_gpx(form_gpx):
@@ -29,15 +29,27 @@ def create_map(gpx_fn):
                 points.append(tuple([point.latitude, point.longitude]))
 
 
-    m = folium.Map(location=points[len(points)//2],zoom_start=14)
+    m = folium.Map(tiles='cartodbpositron',location=points[len(points)//2],zoom_start=14)
+
+    # add marker 
+    folium.Marker(points[0], popup="Start").add_to(m)
+    folium.Marker(points[len(points)-1], popup="End").add_to(m)
+    
 
     # add fullscreen button
     folium.plugins.Fullscreen(
-        position="topright",
+        position="bottomright",
         title="Expand me",
         title_cancel="Exit me",
         force_separate_button=True,
     ).add_to(m)
+
+    # add geocoder 
+    folium.plugins.Geocoder().add_to(m)
+
+    # add Draw
+    Draw(export=True).add_to(m)
+
     # add segments to the map
     folium_gpx = folium.PolyLine(points, color='red', weight=5, opacity=0.85).add_to(m)
     
@@ -61,4 +73,6 @@ def load_map(gpx_fn):
     # add segments to the map
     folium_gpx = folium.PolyLine(points, color='red', weight=5, opacity=0.85).add_to(m)
     
+    folium.FitOverlays().add_to(m)
+
     return m._repr_html_()
