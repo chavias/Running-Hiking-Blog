@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import url_for, current_app
+from flask import url_for, current_app, send_from_directory, flash
 import gpxpy
 import folium
 from folium.plugins import Fullscreen, Geocoder, Draw
@@ -29,7 +29,7 @@ def create_map(gpx_fn):
                 points.append(tuple([point.latitude, point.longitude]))
 
 
-    m = folium.Map(tiles='cartodbpositron',location=points[len(points)//2],zoom_start=14)
+    m = folium.Map(tiles='cartodbpositron',location=points[len(points)//2],zoom_start=16)
 
     # add marker 
     folium.Marker(points[0], popup="Start").add_to(m)
@@ -55,24 +55,7 @@ def create_map(gpx_fn):
     
     return m._repr_html_()
 
-def load_map(gpx_fn):
-    gpx_file = os.path.join(current_app.root_path,'static/route_gpx', gpx_fn)
-    gpx = gpxpy.parse(open(gpx_file))
-    track = gpx.tracks[0]
-    segment = track.segments[0]
-    # load coordinate points
-    points = []
-    for track in gpx.tracks:
-        for segment in track.segments:
-            step = 10
-            for point in segment.points[::step]:
-                points.append(tuple([point.latitude, point.longitude]))
-
-
-    m = folium.Map(location=points[len(points)//2],zoom_start=12)
-    # add segments to the map
-    folium_gpx = folium.PolyLine(points, color='red', weight=5, opacity=0.85).add_to(m)
-    
-    folium.FitOverlays().add_to(m)
-
-    return m._repr_html_()
+def download_file(filename):
+    gpx_directory = os.path.join(current_app.root_path,'static/route_gpx')
+    flash(f"GPX file downloaded! {gpx_directory}", 'success')
+    return send_from_directory(gpx_directory, filename, as_attachment=True)

@@ -20,6 +20,9 @@
         <div id="map">
           {{ folium_map|safe }}
         </div>
+        <div>
+          <button type="button" class="btn btn-secondary btn-sm mt-4 mb-4" data-toggle="modal" data-target="#downloadModal">Download GPX file</button>
+        </div>
         {% endif %}
     </div>
 </article>
@@ -46,4 +49,28 @@
       </div>
     </div>
   </div>
+  <!-- Download button -->
+  <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="downloadModalLabel">Download GPX file?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- <div class="modal-body">
+          ...
+        </div> -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form action="{{ url_for('posts.download_post', post_id = post.id) }}" method="POST">
+            <input class="btn btn-primary" type="submit" value="Download">
+          </form>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock content %}

@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flaskblog.config import Config
 
+
 load_dotenv()
 
 

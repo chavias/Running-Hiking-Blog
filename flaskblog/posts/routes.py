@@ -4,7 +4,10 @@ from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm, UpdatePostForm
-from flaskblog.posts.utils import save_gpx, create_map
+from flaskblog.posts.utils import save_gpx, create_map, download_file
+
+import os
+from flask import url_for, current_app, send_from_directory, flash
 
 
 posts = Blueprint('posts', __name__)
@@ -89,19 +92,31 @@ def delete_post(post_id):
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.home'))
 
-
-@posts.route("/post/new/<int:post_id>/map",methods=['POST'])
-def upload_gpx(post_id):
+@posts.route("/post/new/<int:post_id>/download", methods=['POST','GET'])
+@login_required
+def download_post(post_id):
     post = Post.query.get_or_404(post_id)
-    form = PostForm()
-    if form.validate_on_submit():
-        if form.gpx.data:
-            gpx_file = save_gpx(form.picture.data)
-            current_user.image_file = gpx_file
-        # post.title = form.title.data
-        # post.content = form.content.data
-        # db.session.commit()
-        flash('GPX file has been uploaded!', 'success')
-        return redirect(url_for('posts.post', post_id=post.id))
+    gpx_directory = os.path.join(current_app.root_path,'static/route_gpx')
+    flash(f"GPX file downloaded! {gpx_directory}", 'success')
+    filename = post.gpx_file
+    return send_from_directory(gpx_directory, filename, as_attachment=True, download_name="route.gpx")
+    # download_file(post.gpx_file)
+    #flash(f"GPX file downloaded! {post.gpx_file}", 'success')
+    return redirect(url_for('posts.post', post_id=post.id))
 
-    return render_template('upload.html', form=form)
+
+# @posts.route("/post/new/<int:post_id>/map",methods=['POST'])
+# def upload_gpx(post_id):
+#     post = Post.query.get_or_404(post_id)
+#     form = PostForm()
+#     if form.validate_on_submit():
+#         if form.gpx.data:
+#             gpx_file = save_gpx(form.picture.data)
+#             current_user.image_file = gpx_file
+#         # post.title = form.title.data
+#         # post.content = form.content.data
+#         # db.session.commit()
+#         flash('GPX file has been uploaded!', 'success')
+#         return redirect(url_for('posts.post', post_id=post.id))
+
+#     return render_template('upload.html', form=form)
