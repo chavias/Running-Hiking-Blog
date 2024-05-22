@@ -1,8 +1,10 @@
 .env
 .vscode
 .venv
-__pycache__/
-flaskblog/__pycache__/
+*.pyc
 docker-compose.debug.yml
+__pycache__/
+flaskblog/__init__.pyc
+flaskblog/__pycache__/
 flaskblog/static/profile_pics/*
 flaskblog/static/route_gpx/*
