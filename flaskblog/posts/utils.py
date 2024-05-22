@@ -54,8 +54,3 @@ def create_map(gpx_fn):
     folium_gpx = folium.PolyLine(points, color='red', weight=5, opacity=0.85).add_to(m)
     
     return m._repr_html_()
-
-def download_file(filename):
-    gpx_directory = os.path.join(current_app.root_path,'static/route_gpx')
-    flash(f"GPX file downloaded! {gpx_directory}", 'success')
-    return send_from_directory(gpx_directory, filename, as_attachment=True)
