@@ -3,6 +3,7 @@ import secrets
 from flask import url_for, current_app
 import gpxpy
 import folium
+from folium.plugins import Fullscreen
 
 
 def save_gpx(form_gpx):
@@ -28,7 +29,15 @@ def create_map(gpx_fn):
                 points.append(tuple([point.latitude, point.longitude]))
 
 
-    m = folium.Map(location=points[len(points)//2],zoom_start=20)
+    m = folium.Map(location=points[len(points)//2],zoom_start=14)
+
+    # add fullscreen button
+    folium.plugins.Fullscreen(
+        position="topright",
+        title="Expand me",
+        title_cancel="Exit me",
+        force_separate_button=True,
+    ).add_to(m)
     # add segments to the map
     folium_gpx = folium.PolyLine(points, color='red', weight=5, opacity=0.85).add_to(m)
     

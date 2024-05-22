@@ -15,21 +15,21 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     map_html = None
+    gpx_file = None
     if form.validate_on_submit():
-        if form.gpx.data:
-            gpx_file = save_gpx(form.gpx.data)
-        else:
-            gpx_file = None
         post = Post(title = form.title.data,
                     content = form.content.data,
-                    author = current_user,
-                    gpx_file = gpx_file)
-        if gpx_file:
+                    author = current_user)
+        if form.gpx.data:
+            gpx_file = save_gpx(form.gpx.data)
+            post.gpx_file = gpx_file
             map_html = create_map(gpx_file)
+        else:
+            post.gpx_file = None
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!','success')
-        return redirect(url_for('main.home'))
+        # return redirect(url_for('main.home'))
     return render_template('create_post.html', title='New Post',
                             form=form, legend='New Post', folium_map=map_html)
 
@@ -37,7 +37,10 @@ def new_post():
 @posts.route("/post/new/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    map_html = create_map(post.gpx_file)
+    if post.gpx_file:
+        map_html = create_map(post.gpx_file)
+    else: 
+        map_html = None
     return render_template('post.html', title=post.title, post=post, folium_map=map_html)
 
 
@@ -45,23 +48,27 @@ def post(post_id):
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.gpx_file:
+        map_html = create_map(post.gpx_file)
+    else: 
+        map_html = None
     if post.author != current_user:
         abort(403)
     form = UpdatePostForm()
     if form.validate_on_submit():
-        gpx_file = save_gpx(form.gpx.data)
+        if form.gpx.data:
+            gpx_file = save_gpx(form.gpx.data)
+            post.gpx_file = gpx_file
+            map_html = create_map(post.gpx_file)
         post.title = form.title.data
         post.content = form.content.data
-        post.gpx_file = gpx_file
         db.session.commit()
         flash('Your post has been updated!', 'success')
-        return redirect(url_for('posts.post', post_id=post.id))
+        #return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-        form.gpx.data = post.gpx_file
-
-    map_html = create_map(form.gpx.data)
+        form.gpx.data = post.gpx_file 
     return render_template('create_post.html', title='Update Post',
                             form=form, legend='Update Post', folium_map=map_html)
 

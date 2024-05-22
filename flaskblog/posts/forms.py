@@ -18,4 +18,5 @@ class UpdatePostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     gpx = FileField('Upload GPX file', validators=[FileAllowed(['gpx'])])
+    gpx_submit = SubmitField('Update GPX file')
     submit = SubmitField('Update')
