@@ -16,14 +16,18 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         gpx_file = save_gpx(form.gpx.data)
-        post = Post(title=form.title.data, content=form.content.data, author=current_user, gpx_file=gpx_file)
+        post = Post(title = form.title.data,
+                    content = form.content.data,
+                    author = current_user,
+                    gpx_file = gpx_file)
+ 
+        map_html = create_map(gpx_file)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!','success')
         return redirect(url_for('main.home'))
     
-    map_html = create_map(gpx_file)
-
+    map_html = create_map(form.gpx.data)
     return render_template('create_post.html', title='New Post',
                             form=form, legend='New Post', folium_map=map_html)
 
@@ -31,7 +35,8 @@ def new_post():
 @posts.route("/post/new/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+    map_html = create_map(post.gpx_file)
+    return render_template('post.html', title=post.title, post=post, folium_map=map_html)
 
 
 @posts.route("/post/new/<int:post_id>/update", methods=['GET', 'POST'])
@@ -42,16 +47,21 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        gpx_file = save_gpx(form.gpx.data)
         post.title = form.title.data
         post.content = form.content.data
+        post.gpx_file = gpx_file
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+        form.gpx.data = post.gpx_file
+
+    map_html = create_map(form.gpx.data)
     return render_template('create_post.html', title='Update Post',
-                            form=form, legend='Update Post')
+                            form=form, legend='Update Post', folium_map=map_html)
 
 
 @posts.route("/post/new/<int:post_id>/delete", methods=['POST'])

@@ -16,6 +16,9 @@
         </div>
         <h2 class="article-title">{{ post.title }}</h2>
         <p class="article-content">{{ post.content }}</p>
+        <div id="map">
+          {{ folium_map|safe }}
+        </div>
     </div>
 </article>
 <!-- Modal -->
