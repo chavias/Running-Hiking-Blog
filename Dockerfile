@@ -27,7 +27,5 @@ USER appuser
 # Set the FLASK_APP environment variable
 ENV FLASK_APP=run.py
 
-# Command to run the application
-CMD ["flask", "run", "--host=0.0.0.0"]
-
-        
+# Command to run the application using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:app"]
