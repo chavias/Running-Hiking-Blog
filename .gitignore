@@ -4,6 +4,7 @@
 *.pyc
 docker-compose.debug.yml
 __pycache__/
+instance/
 flaskblog/__init__.pyc
 flaskblog/__pycache__/
 flaskblog/static/profile_pics/*
