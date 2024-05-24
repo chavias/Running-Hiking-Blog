@@ -1,4 +1,4 @@
-version: '3.4'
+#version: '3.4'
 
 services:
   flask:
@@ -24,13 +24,13 @@ services:
     container_name: mariadb
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=root_password
-      - MYSQL_DATABASE=flask_database
+      - MYSQL_ROOT_PASSWORD=flask_password
+      - MYSQL_DATABASE=flaskdb
       - MYSQL_USER=flask_user
-      - MYSQL_PASSWORD=flask_user_password
+      - MYSQL_PASSWORD=flask_password
     volumes:
-      - mariadb_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
 
