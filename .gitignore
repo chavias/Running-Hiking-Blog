@@ -7,4 +7,3 @@ __pycache__/
 instance/
 flaskblog/__init__.pyc
 flaskblog/__pycache__/
-flaskblog/static/route_gpx/*

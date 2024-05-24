@@ -80,49 +80,56 @@ Once the container is running, you can access the application at http://localhos
 
 ```
 .
-├── docker-compose.debug.yml
 ├── docker-compose.yml
 ├── Dockerfile
 ├── flaskblog
-│   ├── config.py
-│   ├── errors
-│   │   ├── handlers.py
-│   │   └── __init__.py
-│   ├── __init__.py
-│   ├── main
-│   │   ├── __init__.py
-│   │   └── routes.py
-│   ├── models.py
-│   ├── posts
-│   │   ├── forms.py
-│   │   ├── __init__.py
-│   │   └── routes.py
-│   ├── static
-│   │   ├── main.css
-│   │   └── profile_pics
-│   ├── templates
-│   │   ├── about.html
-│   │   ├── account.html
-│   │   ├── create_post.html
-│   │   ├── errors
-│   │   │   ├── 403.html
-│   │   │   ├── 404.html
-│   │   │   └── 500.html
-│   │   ├── home.html
-│   │   ├── layout.html
-│   │   ├── login.html
-│   │   ├── post.html
-│   │   ├── register.html
-│   │   ├── reset_request.html
-│   │   ├── reset_token.html
-│   │   └── user_posts.html
-│   └── users
-│       ├── forms.py
-│       ├── __init__.py
-│       ├── routes.py
-│       └── utils.py
+│   ├── config.py
+│   ├── errors
+│   │   ├── handlers.py
+│   │   ├── __init__.py
+│   ├── __init__.py
+│   ├── main
+│   │   ├── __init__.py
+│   │   └── routes.py
+│   ├── models.py
+│   ├── posts
+│   │   ├── forms.py
+│   │   ├── __init__.py
+│   │   ├── routes.py
+│   │   └── utils.py
+│   ├── static
+│   │   ├── main.css
+│   │   ├── profile_pics
+│   │   │   └── default.jpg
+│   │   └── route_gpx
+│   │       └── Tour.gpx
+│   ├── templates
+│   │   ├── about.html
+│   │   ├── account.html
+│   │   ├── create_post.html
+│   │   ├── errors
+│   │   │   ├── 403.html
+│   │   │   ├── 404.html
+│   │   │   └── 500.html
+│   │   ├── home.html
+│   │   ├── layout.html
+│   │   ├── login.html
+│   │   ├── maps
+│   │   │   ├── maps.html
+│   │   │   └── upload.html
+│   │   ├── post.html
+│   │   ├── register.html
+│   │   ├── reset_request.html
+│   │   ├── reset_token.html
+│   │   └── user_posts.html
+│   └── users
+│       ├── forms.py
+│       ├── routes.py
+│       └── utils.py
+├── init.sql
 ├── instance
-│   └── site.db
+│   └── site.db
+├── LICENSE
 ├── README.md
 ├── requirements.txt
 └── run.py
