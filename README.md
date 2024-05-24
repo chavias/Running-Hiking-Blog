@@ -5,7 +5,7 @@ This is a simple blog application built with Flask, a lightweight web framework 
 ## Features
 
 - Create, view, update, and delete hiking or running trails
-- Upload hiking trails in form of GPX files
+- Upload and Download hiking trails in form of GPX files
 - User authentication and authorization
 - Responsive design using Bootstrap
 - Forgot-password functionality
@@ -29,7 +29,7 @@ git clone https://github.com/your-username/flask-blog.git
 cd flask-blog
 ```
 
-### Build and Run the Docker Container
+<!-- ### Build and Run the Docker Container
 
 1. Create a .env file. You can use the provided .env.example file as a   template to create your .env file:
     ```bash
@@ -47,7 +47,7 @@ cd flask-blog
 
     ```bash
     docker run -p 5000:5000 flask_blog
-    ```
+    ``` -->
 
 ### Using Docker Compose
 
@@ -60,13 +60,13 @@ For easier management you can use Docker Compose. You can use the provided docke
     vim .env # or emacs, nano, etc.
     ```
 
-2. Edit docker-compose.yml
+2. Edit docker-compose.yml (optional)
    
    ```bash
-   vim docker-compose.yml
+   vim docker-compose.yml # or emacs, nano, etc.
    ```
 
-3. Build and run the containers:
+3. Build and run the containers
 
     ```bash
     docker-compose up --build
