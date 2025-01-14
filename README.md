@@ -54,14 +54,14 @@ cd flask-blog
 For easier management you can use Docker Compose. You can use the provided docker-compose.yml file or adapt it to your needs.
 
 1. As before create a .env file. You can use the provided .env.example file as a   template to create your .env file:
-   
+
     ```bash
     cp .env.example .env
     vim .env # or emacs, nano, etc.
     ```
 
 2. Edit docker-compose.yml (optional)
-   
+
    ```bash
    vim docker-compose.yml # or emacs, nano, etc.
    ```
@@ -78,7 +78,7 @@ Once the container is running, you can access the application at http://localhos
 
 ## Application Structure
 
-```
+```bash
 .
 ├── docker-compose.yml
 ├── Dockerfile
