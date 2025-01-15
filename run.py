@@ -7,7 +7,7 @@ if __name__ == '__main__':
 
 
 '''
-!!!  befor launching the create the database !!! 
+!!!  before launching the create the database !!! 
 
 from flaskblog import db, create_app
 
